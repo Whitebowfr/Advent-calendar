@@ -2182,11 +2182,8 @@ data = data.split("\n\n")
 
 let result = 0
 
-data.forEach(group => {
-    
-});
+//This is only part one
 
-/*
 data.forEach(group => {
     let answers = group.split("")
     let answeredQuestions = ""
@@ -2197,6 +2194,5 @@ data.forEach(group => {
     });
     result += answeredQuestions.length
 });
-*/
 
 console.log(result)
