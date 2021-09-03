@@ -1,5 +1,10 @@
 var data = require("./data").days.five
 
+/**
+ * A function which converts a boarding pass to a JSON Object containing the data of the pass
+ * @param {pass} str 
+ * @returns {seatData}
+ */
 function codeToJSON(str) {
     let row = binaryToDec(str.match(/(F|B){7}/g)[0]
                     .replaceAll("F", "0")
@@ -14,6 +19,11 @@ function codeToJSON(str) {
     }
 }
 
+/**
+ * A simple function to convert a binary string to an integer
+ * @param {string} bin
+ * @returns {Int}
+ */
 function binaryToDec(bin) {
     bin.split("")
     let result = 0
@@ -49,3 +59,15 @@ ids.forEach(id => {
     }
     previousId = id
 })
+
+/**
+ * A string containing the boarding pass number.
+ * @typedef {string} pass syntax : "xxxxxxxYYY" with "x" being either F or B and "Y" being either L or R
+ */
+/**
+ * The complete data of a seat
+ * @typedef {Object} seatData
+ * @property {Int} row
+ * @property {Int} col
+ * @property {Int} id Is equal to the row * 8 + the column number
+ */

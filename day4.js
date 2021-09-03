@@ -20,14 +20,20 @@ data.split("\n\n").forEach(passport => {
 
 })
 
+/**
+ * Checks for the validity of a passport field
+ * @param {(string|int)} data - the data to verify
+ * @param {string} type - the type of data. Can be one of byr, iyr, eyr, hgt, hcl, ecl or pid
+ * @returns {boolean} - if the data is valid or not
+ */
 function validateData(data, type) {
     switch(type) {
         case "byr":
-            return (data.length == 4 && data >= 1920 && data <= 2002)
+            return (data.type == "number" && data.length == 4 && data >= 1920 && data <= 2002)
         case "iyr":
-            return (data.length == 4 && data >= 2010 && data <= 2020)
+            return (data.type == "number" && data.length == 4 && data >= 2010 && data <= 2020)
         case "eyr":
-            return (data.length == 4 && data >= 2020 && data <= 2030)
+            return (data.type == "number" && data.length == 4 && data >= 2020 && data <= 2030)
         case "hgt":
             let unit = data.match(/cm|in/g)
             let height = data.match(/.*[0-9]/g)[0]
@@ -54,7 +60,9 @@ function validateData(data, type) {
             return ok
         case "pid":
             let nmbr = data.match(/[0-9]/g)
-            return nmbr.length == 9
+            return (nmbr.length == 9 && data.type == "number")
+        default:
+            return false;
     }
 }
 
