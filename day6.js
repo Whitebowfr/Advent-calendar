@@ -24,6 +24,7 @@ let result = 0
 data.forEach(group => {
     let e = group.match(/[a-z]/g)
     let alreadyDone = ""
+    //Could also have done "abcdefghijklmnopqrstuvwxyz".split("").forEach but this is more efficient
     e.forEach(letter => {
         if (!alreadyDone.includes(letter)) {
             let amountOfAnswers = e.filter(l => l === letter).length

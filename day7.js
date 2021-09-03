@@ -4,10 +4,16 @@ var rules = require("./data").days.seven
 let bagRules = {}
 
 rules.split("\n").forEach(rule => {
+    //Separate every children bags
     let bagCanFit = rule.match(/[0-9][^,]+/g)
+
+    //Replace the first "bags", right after the color of the current bag (it's not /g so it just replaces the first match)
     let ruleForBag = rule.replace(/ bags.*/, "")
+
+    //Can be null when the current bag doesn't have any children
     if (bagCanFit != null) {
         bagCanFit.forEach(bag => {
+            //Just get the color of the bag, not the number
             let colorOfBag = bag.replace(/ bag(s?)\W?/, "").replace(/[0-9]+ /g, "")
             if (bagRules[colorOfBag] == null) {
                 bagRules[colorOfBag] = []
@@ -21,16 +27,25 @@ rules.split("\n").forEach(rule => {
 let result = 0
 
 let countedBags = []
+/**
+ * This function increments the "result" variable at each nested bag
+ * @param {string} bag The color of the bag
+ */
 function countNumberOfBagsItCanBeHeldBy(bag) {
     let bagsToCheck = bagRules[bag]
+
+    //This can be undefined if the bag doesn't have any nested bags
     if (bagsToCheck != undefined) {
         bagsToCheck.forEach(bagBis => {
+
+            //Checks if the bag hasn't alreadt been counted
             if (countedBags.filter(b => b === bagBis) == 0) {
                 result++
                 countedBags.push(bagBis)
                 //ik recursion isn't good especially in nested loops
                 countNumberOfBagsItCanBeHeldBy(bagBis)
             }
+
         })
     }
 }
