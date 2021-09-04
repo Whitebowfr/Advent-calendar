@@ -58,7 +58,7 @@ function countNumberOfBagsItCanBeHeldBy(bag) {
     if (bagsToCheck != undefined) {
         bagsToCheck.forEach(bagBis => {
 
-            //Checks if the bag hasn't alreadt been counted
+            //Checks if the bag hasn't already been counted
             if (countedBags.filter(b => b === bagBis) == 0) {
                 result++
                 countedBags.push(bagBis)
