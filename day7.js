@@ -8,9 +8,6 @@ function transformToJSONpart1() {
         //Separate every children bags
         let bagCanFit = rule.match(/[0-9][^,]+/g)
     
-        //Replace the first "bags", right after the color of the current bag (it's not /g so it just replaces the first match)
-        //let ruleForBag = rule.replace(/ bags.*/, "")
-    
         //Can be null when the current bag doesn't have any children
         if (bagCanFit != null) {
             bagCanFit.forEach(bag => {
@@ -45,7 +42,6 @@ function transformToJSONpart2() {
 transformToJSONpart2()
 
 let result = 0
-
 let countedBags = []
 /**
  * This function increments the "result" variable at each nested bag
@@ -62,7 +58,6 @@ function countNumberOfBagsItCanBeHeldBy(bag) {
             if (countedBags.filter(b => b === bagBis) == 0) {
                 result++
                 countedBags.push(bagBis)
-                //ik recursion isn't good especially in nested loops
                 countNumberOfBagsItCanBeHeldBy(bagBis)
             }
 
@@ -70,9 +65,13 @@ function countNumberOfBagsItCanBeHeldBy(bag) {
     }
 }
 
+let memo
 function countNumberOfbagsInside(bag) {
+    memo = memo || {}
+    if (memo[bag]) {
+        return memo[bag]
+    }
 
-    //I thought quantityInThisBag = 0 would be the solution but it was returning 0, now it works for some reason so could you explain how it's working please ?
     var quantityInThisBag = 1
     let bagsToCheck = Object.keys(bagRules[bag])
 
@@ -82,8 +81,6 @@ function countNumberOfbagsInside(bag) {
         })
     }
 
-    return quantityInThisBag
+    return memo[bag] = quantityInThisBag
 }
-
 console.log(countNumberOfbagsInside("shiny gold") - 1)
-
